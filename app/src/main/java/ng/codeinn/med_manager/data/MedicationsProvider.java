@@ -38,7 +38,7 @@ public class MedicationsProvider extends ContentProvider {
 
         matcher.addURI(authority, MedicationsDbContract.PATH_MEDICATIONS ,CODE_MEDICATIONS);
 
-        matcher.addURI(authority, MedicationsDbContract.PATH_MEDICATIONS + "/*", CODE_MEDICATIONS_WITH_MONTH);
+        matcher.addURI(authority, MedicationsDbContract.PATH_MEDICATIONS + "/#", CODE_MEDICATIONS_WITH_MONTH);
 
         matcher.addURI(authority, MedicationsDbContract.PATH_MEDICATIONS + "/#", CODE_MEDICATIONS_WITH_ID);
 
@@ -120,9 +120,9 @@ public class MedicationsProvider extends ContentProvider {
                 break;
             }
             case CODE_MEDICATIONS_WITH_MONTH:{
-                String month = uri.getLastPathSegment();
+                String monthCodeString = uri.getLastPathSegment();
 
-                String [] selectionArguments = new String[]{month};
+                String [] selectionArguments = new String[]{monthCodeString};
 
                 cursor = db.query(TABLE_NAME,
                         projection,

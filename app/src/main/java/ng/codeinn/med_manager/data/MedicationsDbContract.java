@@ -30,12 +30,9 @@ public class MedicationsDbContract {
                 COLUMN_MEDICATION_NAME = "medication_name",
                 MEDICATION_DESCRIPTION = "medication_description",
                 MEDICATION_INTERVAL = "medication_interval",
-                START_DAY = "start_day",
+                START_DATE = "start_date",
                 START_MONTH = "start_month",
-                START_YEAR = "start_year",
-                END_DAY = "end_day",
-                END_MONTH = "end_month",
-                END_YEAR = "end_year";
+                END_DATE = "end_date";
 
         public static Uri buildUriWithMonth(String month){
             return CONTENT_URI.buildUpon().

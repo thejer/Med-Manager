@@ -32,12 +32,9 @@ public class MedicationsDbHelper extends SQLiteOpenHelper {
                 COLUMN_MEDICATION_NAME + " TEXT NOT NULL, " +
                 MEDICATION_DESCRIPTION + " TEXT NOT NULL, " +
                 MEDICATION_INTERVAL + " REAL NOT NULL, " +
-                START_DAY + " INTEGER NOT NULL, " +
+                START_DATE + " INTEGER NOT NULL, " +
                 START_MONTH + " INTEGER NOT NULL, " +
-                START_YEAR + " INTEGER NOT NULL, " +
-                END_DAY + " INTEGER NOT NULL, " +
-                END_MONTH + " INTEGER NOT NULL, " +
-                END_YEAR + " INTEGER NOT NULL" +
+                END_DATE + " INTEGER NOT NULL, " +
                 "); ";
         db.execSQL(SQL_CREATE_MEDICATIONS_TABLE);
     }
