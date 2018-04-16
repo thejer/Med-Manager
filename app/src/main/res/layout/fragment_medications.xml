@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ng.codeinn.med_manager.medications.ScrollChildSwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/medications_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/medications_recycler_view"
+            android:layout_width="match_parent"
+            android:clipToPadding="false"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/noMedications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/noMedicatonsIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_assignment_turned_in_24dp" />
+
+            <TextView
+                android:id="@+id/noMedicationsMain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/no_medications"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/noMedicationsAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:background="@drawable/touch_feedback"
+                android:gravity="center"
+                android:text="@string/add_a_medication" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</ng.codeinn.med_manager.medications.ScrollChildSwipeRefreshLayout>

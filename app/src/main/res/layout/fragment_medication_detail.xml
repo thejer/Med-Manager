@@ -1,0 +1,129 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="14dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    tools:context=".medicationdetail.MedicationDetailFragment">
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/card_view"
+        android:clickable="true"
+        android:elevation="16dp"
+        android:foreground="?selectableItemBackground"
+        card_view:cardCornerRadius="5dp"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            >
+
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:id="@+id/medication_name_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/medication_name"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                />
+
+
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:id="@+id/description_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                />
+
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/interval"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                />
+
+
+            <TextView
+                android:id="@+id/interval_detail"
+                tools:text="1 Hour(s)"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_marginStart="8dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:focusable="true">
+
+            <TextView
+                android:text="@string/start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/detail_start_date_tv"
+                android:layout_height="wrap_content"
+                tools:text="16/12/17"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_marginStart="18sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:focusable="true">
+
+
+            <TextView
+                android:text="@string/end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+
+                />
+
+            <TextView
+                android:id="@+id/detail_end_date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="16/12/17"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_marginStart="18sp"
+                />
+        </LinearLayout>
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="8dp">
 
 
@@ -13,20 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Medication Name" />
+
 
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:drawablePadding="4dp"
-        android:drawableStart="@drawable/ic_status_in_progress"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption"
-        app:layout_constraintStart_toStartOf="@+id/medication_name"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+        app:layout_constraintStart_toEndOf="@+id/status_indicator"
         app:layout_constraintTop_toBottomOf="@+id/medication_name"
         tools:text="Status" />
 
@@ -40,6 +41,15 @@
         android:gravity="end"
         android:layout_marginEnd="16dp"
         tools:text="73 %" />
+
+    <ImageView
+        android:id="@+id/status_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_status_in_progress"
+        app:layout_constraintBottom_toBottomOf="@+id/status"
+        app:layout_constraintStart_toStartOf="@+id/medication_name"
+        app:layout_constraintTop_toTopOf="@+id/status" />
 
 
 </android.support.constraint.ConstraintLayout>
