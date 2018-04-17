@@ -22,6 +22,6 @@ public class MedManagerIntentService extends IntentService{
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         String action = intent.getAction();
-        MedManagerTasks.executeTask(this, action);
+        MedManagerTasks.executeTask(this, action, null);
     }
 }

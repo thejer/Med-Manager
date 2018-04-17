@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import ng.codeinn.med_manager.data.Medication;
 import ng.codeinn.med_manager.data.source.MedicationsDataSource;
+import ng.codeinn.med_manager.sync.MedManagerSyncUtils;
 import ng.codeinn.med_manager.utilities.PreferenceUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -71,6 +72,13 @@ public class AddEditMedicationPresenter implements AddEditMedicationContract.IPr
     public boolean isDataMissing() {
         return mIsDataMissing;
     }
+
+    @Override
+    public void scheduleMedicationScheduler(Context context, String startDate, String medicationName, int interval) {
+        MedManagerSyncUtils.scheduleMedicationScheduler(context, startDate, medicationName, interval);
+
+    }
+
 
     @Override
     public void onMedicationLoaded(Medication medication) {

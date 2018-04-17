@@ -136,10 +136,10 @@ public class MedicationDateUtils {
     }
 
     public static long normalDateToMillis(String normalDate){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+        DateFormat dateFormat = DateFormat.getDateTimeInstance();
         long dateInMillis;
         try {
-            Date mDate = simpleDateFormat.parse(normalDate);
+            Date mDate = dateFormat.parse(normalDate);
             dateInMillis = mDate.getTime();
             return dateInMillis;
         }catch (ParseException e){

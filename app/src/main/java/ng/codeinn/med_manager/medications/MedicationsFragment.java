@@ -9,10 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,7 +32,6 @@ import ng.codeinn.med_manager.data.Medication;
 import ng.codeinn.med_manager.medicationdetail.MedicationDetailActivity;
 import ng.codeinn.med_manager.utilities.MedicationDateUtils;
 
-import static android.content.ContentValues.TAG;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -428,12 +425,31 @@ public class MedicationsFragment extends Fragment implements MedicationsContract
 
             float timeCompletedHours =  (durationHours - TimeUnit.MILLISECONDS.toHours(endDateInMillis - System.currentTimeMillis()));
 
-            int percentageCompleted = (int) ((int) (timeCompletedHours)/durationHours *100);
+            int completed = (int) ((int) (timeCompletedHours)/durationHours *100);
+
+            int percentageCompleted;
+
+            String status;
+
+            int statusIcon;
+
+            if (completed >= 100){
+                percentageCompleted = 100;
+                status = getString(R.string.status_completed);
+                statusIcon = R.drawable.ic_status_completed;
+            }else if( completed <= 0){
+                percentageCompleted = 0;
+                status = getString(R.string.status_not_started);
+                statusIcon = R.drawable.ic_status_not_started;
+            }else{
+                percentageCompleted = completed;
+                status = getString(R.string.in_progress);
+                statusIcon = R.drawable.ic_status_in_progress;
+            }
 
             holder.percentageView.setText(String.format(getString(R.string.percentage), percentageCompleted));
-
-            holder.statusView.setText(R.string.in_progress);
-
+            holder.statusView.setText(status);
+            holder.statusImageView.setImageResource(statusIcon);
         }
 
         @Override

@@ -1,6 +1,5 @@
 package ng.codeinn.med_manager.sync;
 
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,17 +8,23 @@ import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 
 /**
- * Created by Jer on 06/04/2018.
+ * Created by Jer on 17/04/2018.
  */
 
-public class MedManagerFirebaseJobService extends JobService {
+public class MedicationSchedulerService extends JobService {
 
     private AsyncTask mBackgroundTask;
 
-    private static String medicationMame;
+    private static int mInterval;
+    private static String mMedicationTag;
 
-    public static void setMedicationMame(String medicationMame) {
-        MedManagerFirebaseJobService.medicationMame = medicationMame;
+
+    public static void setInterval(int interval) {
+        mInterval = interval;
+    }
+
+    public static void setMedicationTag(String medicationTag) {
+        mMedicationTag = medicationTag;
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -29,19 +34,23 @@ public class MedManagerFirebaseJobService extends JobService {
         mBackgroundTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
-                Context context = MedManagerFirebaseJobService.this;
-                MedManagerTasks.executeTask(context, MedManagerTasks.ACTION_MEDICATION_REMINDER, medicationMame);
+
+                Context context = MedicationSchedulerService.this;
+
+                MedManagerSyncUtils.scheduleMedicationReminderSync(context, mInterval, mMedicationTag);
+
                 return null;
             }
 
+
             @Override
             protected void onPostExecute(Object o) {
-                jobFinished(job ,false);
+                jobFinished(job, false);
             }
         };
-
         mBackgroundTask.execute();
         return true;
+
     }
 
     @Override

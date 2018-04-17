@@ -61,5 +61,7 @@
     <string name="end_date">End date</string>
     <string name="percentage">%d%%</string>
     <string name="date_format">%d/%d/%d %d:%d</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_not_started">Not started</string>
 
 </resources>

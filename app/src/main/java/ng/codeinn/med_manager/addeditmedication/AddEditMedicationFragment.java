@@ -6,12 +6,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +23,10 @@ import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import ng.codeinn.med_manager.R;
 import ng.codeinn.med_manager.utilities.MedicationDateUtils;
@@ -86,46 +82,71 @@ public class AddEditMedicationFragment extends Fragment implements AddEditMedica
 
 
 
-                String startDateString =  String.format(getString(R.string.date_format),
-                        startMonthId + 1, startDay, startYear, startHour, startMinute);
-                String endDateString = String.format(getString(R.string.date_format),
-                        endMonth + 1, endDay, endYear, endHour, endMinute);
+//                String startDateString =  String.format(getString(R.string.date_format),
+//                        startMonthId + 1, startDay, startYear, startHour, startMinute);
+//                String endDateString = String.format(getString(R.string.date_format),
+//                        endMonth + 1, endDay, endYear, endHour, endMinute);
 
 
                 if (startDay == 0){
                     startDateTextView.setError("Set Date and Time");
                 }
 
+                Calendar startCalendar = Calendar.getInstance();
+                startCalendar.set(Calendar.YEAR, startYear);
+                startCalendar.set(Calendar.MONTH, startMonthId);
+                startCalendar.set(Calendar.DAY_OF_MONTH, startDay);
+                startCalendar.set(Calendar.HOUR_OF_DAY, startHour);
+                startCalendar.set(Calendar.MINUTE, startMinute);
+
+//        String format = "MMM dd yyyy HH:mm";
                 DateFormat dateFormat = DateFormat.getDateTimeInstance();
+               String startDate = dateFormat.format(startCalendar.getTime());
 
-                Date startDate = new Date();
-                Date endDate = new Date();
+                Calendar endCalendar = Calendar.getInstance();
+                endCalendar.set(Calendar.YEAR, endYear);
+                endCalendar.set(Calendar.MONTH, endMonth);
+                endCalendar.set(Calendar.DAY_OF_MONTH, endDay);
+                endCalendar.set(Calendar.HOUR_OF_DAY, endHour);
+                endCalendar.set(Calendar.MINUTE, endMinute);
+
+                String endDate = dateFormat.format(endCalendar.getTime());
+
+                boolean cancel = false;
 
 
-
-                try {
-                    startDate = dateFormat.parse(startDateString);
-                    endDate = dateFormat.parse(endDateString);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                if (endYear == 0){
+                    endDateTextView.setError("Set the end date");
+                    endDateTextView.requestFocus();
+                    cancel = true;
                 }
-//
-//                long startDateMillis = startDate.getTime();
-//                long endDateMillis = endDate.getTime();
+                if(startYear == 0){
+                    startDateTextView.setError("Set the start date");
+                    startDateTextView.requestFocus();
+                    cancel = true;
+                }
+                if (endCalendar.getTime().getTime() < startCalendar.getTime().getTime()){
+                    startDateTextView.setError("The start date can not be later than the end date");
+                    endDateTextView.setError("The start date can not be later than the end date");
+                    startDateTextView.requestFocus();
+                    endDateTextView.requestFocus();
+                    cancel = true;
+                }
 
+                if (!cancel){
+                    Log.i(TAG, "onClick: start date" + startDate.toString());
 
+                    Toast.makeText(getContext(), startDate, Toast.LENGTH_SHORT).show();
 
-                Log.i(TAG, "onClick: start date" + startDate.toString());
+                    String month =  MedicationDateUtils.getMonth(startMonthId + 1);
 
-                Toast.makeText(getContext(), startDate.toString(), Toast.LENGTH_SHORT).show();
+                    mPresenter.saveMedication(medicationNameEditText.getText().toString(),
+                            medicationDescriptionEditText.getText().toString(),
+                            timeInterval,
+                            startDate, endDate, month, getContext());
 
-               String month =  MedicationDateUtils.getMonth(startMonthId);
-
-                mPresenter.saveMedication(medicationNameEditText.getText().toString(),
-                        medicationDescriptionEditText.getText().toString(),
-                        timeInterval,
-                        startDate.toString(), endDate.toString(), month, getContext());
-
+                    mPresenter.scheduleMedicationScheduler(getContext(), startDate, medicationNameEditText.getText().toString(), timeInterval);
+                }
 
             }
         });

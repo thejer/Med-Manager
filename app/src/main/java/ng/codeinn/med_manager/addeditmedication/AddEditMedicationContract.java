@@ -11,6 +11,7 @@ import java.util.Date;
 
 import ng.codeinn.med_manager.BasePresenter;
 import ng.codeinn.med_manager.BaseView;
+import ng.codeinn.med_manager.data.Medication;
 
 
 /**
@@ -26,6 +27,8 @@ public interface AddEditMedicationContract {
         void populateMedication();
 
         boolean isDataMissing();
+
+        void scheduleMedicationScheduler(Context context, String startDate, String medicationName, int interval);
 
     }
 
