@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import ng.codeinn.med_manager.data.Medication;
 import ng.codeinn.med_manager.data.source.MedicationsDataSource;
 import ng.codeinn.med_manager.sync.MedManagerSyncUtils;
-import ng.codeinn.med_manager.utilities.PreferenceUtils;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 

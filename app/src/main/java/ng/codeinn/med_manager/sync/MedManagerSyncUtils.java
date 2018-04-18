@@ -11,6 +11,7 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.Trigger;
 
+import java.text.ParseException;
 import java.util.concurrent.TimeUnit;
 
 import ng.codeinn.med_manager.data.Medication;
@@ -35,19 +36,22 @@ public class MedManagerSyncUtils {
 
         Log.i(TAG, "scheduleMedicationReminderSync: started " + medicationTag);
 
-       int REMINDER_INTERVAL_SECONDS = (int) (TimeUnit.HOURS.toSeconds(interval));
-       int SYNC_FLEXTIME_SECONDS = REMINDER_INTERVAL_SECONDS / interval;
+        Log.i(TAG, "scheduleMedicationReminderSync: " + interval);
 
-       MedManagerFirebaseJobService.setMedicationMame(medicationTag);
+        int reminderIntervalSeconds = (int) (TimeUnit.HOURS.toSeconds(interval));
+        int flexTimeSeconds = (int) (TimeUnit.MINUTES.toSeconds(15));
+
+        MedManagerFirebaseJobService.setMedicationMame(medicationTag);
 
         Job medManagerJob = firebaseJobDispatcher.newJobBuilder()
                 .setService(MedManagerFirebaseJobService.class)
                 .setTag(medicationTag)
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
+//                .setTrigger(Trigger.NOW)
                 .setTrigger(Trigger.executionWindow(
-                        REMINDER_INTERVAL_SECONDS,
-                        REMINDER_INTERVAL_SECONDS + SYNC_FLEXTIME_SECONDS))
+                        reminderIntervalSeconds,
+                        reminderIntervalSeconds + flexTimeSeconds ))
                 .setReplaceCurrent(true)
                 .build();
 
@@ -61,20 +65,24 @@ public class MedManagerSyncUtils {
         Driver driver = new GooglePlayDriver(context);
         FirebaseJobDispatcher firebaseJobDispatcher = new FirebaseJobDispatcher(driver);
 
-        long setTimeMillis = MedicationDateUtils.normalDateToMillis(startDate);
+        long setTimeMillis = 0;
+        try {
+            setTimeMillis = MedicationDateUtils.normalDateToMillis(startDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         MedicationSchedulerService.setInterval(interval);
         MedicationSchedulerService.setMedicationTag(medicationName);
 
 
-        long timeToSchedule = setTimeMillis - System.currentTimeMillis();
+        long timeToSchedule = Math.round(setTimeMillis - System.currentTimeMillis());
 
         int jobTime;
-        int flexTime;
 
         if (timeToSchedule > 0 ){
-            jobTime =  (int) TimeUnit.MILLISECONDS.toSeconds(Math.round(setTimeMillis - System.currentTimeMillis()));
+            jobTime =  (int) TimeUnit.MILLISECONDS.toSeconds(timeToSchedule);
 
         }else{
             jobTime =  15;

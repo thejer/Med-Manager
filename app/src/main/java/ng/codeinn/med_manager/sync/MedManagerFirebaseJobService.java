@@ -4,6 +4,7 @@ package ng.codeinn.med_manager.sync;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
@@ -31,6 +32,7 @@ public class MedManagerFirebaseJobService extends JobService {
             protected Object doInBackground(Object[] objects) {
                 Context context = MedManagerFirebaseJobService.this;
                 MedManagerTasks.executeTask(context, MedManagerTasks.ACTION_MEDICATION_REMINDER, medicationMame);
+                Log.i(" ", "doInBackground: notified " + medicationMame );
                 return null;
             }
 

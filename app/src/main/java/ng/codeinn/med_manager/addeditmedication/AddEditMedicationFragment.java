@@ -146,6 +146,7 @@ public class AddEditMedicationFragment extends Fragment implements AddEditMedica
                             startDate, endDate, month, getContext());
 
                     mPresenter.scheduleMedicationScheduler(getContext(), startDate, medicationNameEditText.getText().toString(), timeInterval);
+                    Log.i(TAG, "onClick: called a scheduler for" + medicationNameEditText.getText().toString());
                 }
 
             }

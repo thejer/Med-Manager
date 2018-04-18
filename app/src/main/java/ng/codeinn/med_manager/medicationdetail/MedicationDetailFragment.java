@@ -120,7 +120,7 @@ public class MedicationDetailFragment extends Fragment implements MedicationDeta
         String name = medicationDetails.getMMedicationName();
         String description = medicationDetails.getMDescription();
         Integer interval = medicationDetails.getMInterval();
-        String intervalString = interval.toString();
+        String intervalString = String.format(getString(R.string.hours_format), interval.toString());
         String start = medicationDetails.getMStartDate();
         String end = medicationDetails.getMEndDate();
 

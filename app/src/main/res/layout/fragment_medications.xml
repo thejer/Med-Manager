@@ -27,7 +27,7 @@
 
             <ImageView
                 android:id="@+id/noMedicatonsIcon"
-                android:layout_width="48dp"
+                android:layout_width="43dp"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_assignment_turned_in_24dp" />

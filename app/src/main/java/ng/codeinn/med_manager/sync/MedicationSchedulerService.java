@@ -3,6 +3,7 @@ package ng.codeinn.med_manager.sync;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
@@ -38,6 +39,7 @@ public class MedicationSchedulerService extends JobService {
                 Context context = MedicationSchedulerService.this;
 
                 MedManagerSyncUtils.scheduleMedicationReminderSync(context, mInterval, mMedicationTag);
+                Log.i("", "doInBackground: " + mInterval);
 
                 return null;
             }

@@ -9,8 +9,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +24,7 @@ import android.support.v7.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -32,6 +35,7 @@ import ng.codeinn.med_manager.data.Medication;
 import ng.codeinn.med_manager.medicationdetail.MedicationDetailActivity;
 import ng.codeinn.med_manager.utilities.MedicationDateUtils;
 
+import static android.content.ContentValues.TAG;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -413,43 +417,9 @@ public class MedicationsFragment extends Fragment implements MedicationsContract
         @Override
         public void onBindViewHolder(MedicationAdapter.MedicationAdapterViewHolder holder, int position) {
             Medication medication = getItem(position);
-
-            // TODO: 16/04/2018 Fix the date format
-
             holder.medicationNameView.setText(medication.getMMedicationName());
-            long startDateInMillis = MedicationDateUtils.normalDateToMillis(medication.getMStartDate());
+            holder.medicationDateView.setText(medication.getMStartDate());
 
-            long endDateInMillis = MedicationDateUtils.normalDateToMillis(medication.getMEndDate());
-
-            float durationHours = TimeUnit.MILLISECONDS.toHours(endDateInMillis - startDateInMillis);
-
-            float timeCompletedHours =  (durationHours - TimeUnit.MILLISECONDS.toHours(endDateInMillis - System.currentTimeMillis()));
-
-            int completed = (int) ((int) (timeCompletedHours)/durationHours *100);
-
-            int percentageCompleted;
-
-            String status;
-
-            int statusIcon;
-
-            if (completed >= 100){
-                percentageCompleted = 100;
-                status = getString(R.string.status_completed);
-                statusIcon = R.drawable.ic_status_completed;
-            }else if( completed <= 0){
-                percentageCompleted = 0;
-                status = getString(R.string.status_not_started);
-                statusIcon = R.drawable.ic_status_not_started;
-            }else{
-                percentageCompleted = completed;
-                status = getString(R.string.in_progress);
-                statusIcon = R.drawable.ic_status_in_progress;
-            }
-
-            holder.percentageView.setText(String.format(getString(R.string.percentage), percentageCompleted));
-            holder.statusView.setText(status);
-            holder.statusImageView.setImageResource(statusIcon);
         }
 
         @Override
@@ -465,19 +435,16 @@ public class MedicationsFragment extends Fragment implements MedicationsContract
         class MedicationAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
             TextView medicationNameView,
-                    statusView,
-                    percentageView;
-            ImageView statusImageView;
+                   medicationDateView;
+            CardView medicationsCardView;
 
             public MedicationAdapterViewHolder(View itemView) {
                 super(itemView);
 
                 medicationNameView = (TextView) itemView.findViewById(R.id.medication_name);
-                statusView = (TextView) itemView.findViewById(R.id.status);
-                percentageView = (TextView) itemView.findViewById(R.id.percentage_completed);
-                statusImageView = itemView.findViewById(R.id.status_indicator);
-
-                itemView.setOnClickListener(this);
+                medicationDateView = itemView.findViewById(R.id.medication_date);
+                medicationsCardView = itemView.findViewById(R.id.medications_card_view);
+                medicationsCardView.setOnClickListener(this);
             }
 
             @Override
