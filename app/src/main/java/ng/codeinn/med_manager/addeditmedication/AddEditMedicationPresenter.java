@@ -29,9 +29,9 @@ public class AddEditMedicationPresenter implements AddEditMedicationContract.IPr
 
 
 
-    public AddEditMedicationPresenter(@NonNull MedicationsDataSource medicationsDataSource,
-                                      @NonNull AddEditMedicationContract.IView addMedicationView,
-                                      String medicationId, boolean shouldLoadDataFromRepo) {
+    AddEditMedicationPresenter(@NonNull MedicationsDataSource medicationsDataSource,
+                               @NonNull AddEditMedicationContract.IView addMedicationView,
+                               String medicationId, boolean shouldLoadDataFromRepo) {
         mMedicationsDataSource = checkNotNull(medicationsDataSource);
         mAddMedicationView = checkNotNull(addMedicationView);
         mMedicationId = medicationId;

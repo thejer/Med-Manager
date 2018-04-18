@@ -22,18 +22,17 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
-        <service android:name=".sync.MedicationSchedulerService"
+        <service
+            android:name=".sync.MedicationSchedulerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".addeditmedication.AddEditMedicationActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".medications.MedicationsActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -43,11 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".medicationdetail.MedicationDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-
-        </activity>
+        <activity
+            android:name=".medicationdetail.MedicationDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".dashboard.DashboardActivity"></activity>
     </application>
 
 </manifest>

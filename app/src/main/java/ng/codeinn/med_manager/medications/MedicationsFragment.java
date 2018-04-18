@@ -208,7 +208,7 @@ public class MedicationsFragment extends Fragment implements MedicationsContract
     public void showNoMedications() {
         showNoMedicationsViews(
                 getString(R.string.no_medications),
-                R.drawable.ic_check_circle_24dp
+                R.drawable.ic_local_hospital_black_24dp
         );
     }
 
@@ -311,7 +311,7 @@ public class MedicationsFragment extends Fragment implements MedicationsContract
     }
 
     private void showMessage(String message) {
-        Snackbar.make(getView(), message, Snackbar.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), message   , Toast.LENGTH_SHORT).show();
     }
 
     @Override

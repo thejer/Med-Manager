@@ -47,18 +47,6 @@ public class MedicationsLocalDataSource implements MedicationsDataSource {
     @SuppressLint("StaticFieldLeak")
     @Override
     public void getAllMedications(@NonNull final LoadAllMedicationsCallBack callBack) {
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                List<Medication> medications = mMedicationsDao.getAll();
-//                if(medications.isEmpty()){
-//                    callBack.onDataNotAvailable();
-//                }else {
-//                    callBack.onMedicationsLoaded(medications);
-//                }
-//                return null;
-//            }
-//        }.execute();
 
         Runnable runnable = new Runnable() {
             @Override
@@ -86,18 +74,7 @@ public class MedicationsLocalDataSource implements MedicationsDataSource {
     @SuppressLint("StaticFieldLeak")
     @Override
     public void getMonthlyMedications(@NonNull final String month, @NonNull final LoadMonthlyMedicationsCallBack callBack) {
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                List<Medication> medications = mMedicationsDao.getMonthMedications(month);
-//                if (medications.isEmpty()){
-//                    callBack.onDataNotAvailable();
-//                }else {
-//                    callBack.onMonthlyMedicationsLoaded(medications);
-//                }
-//                return null;
-//            }
-//        }.execute();
+
 
         Runnable runnable = new Runnable() {
             @Override
@@ -125,17 +102,7 @@ public class MedicationsLocalDataSource implements MedicationsDataSource {
     @SuppressLint("StaticFieldLeak")
     @Override
     public void getMedication(@NonNull final String medicationId, @NonNull final GetMedicationCallback callback) {
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                if(medication != null){
-//                    callback.onMedicationLoaded(medication);
-//                }else {
-//                    callback.onDataNotAvailable();
-//                }
-//                return null;
-//            }
-//        }.execute();
+
 
         Runnable runnable = new Runnable() {
             @Override
@@ -162,13 +129,6 @@ public class MedicationsLocalDataSource implements MedicationsDataSource {
     @SuppressLint("StaticFieldLeak")
     @Override
     public void saveMedication(@NonNull final Medication medication) {
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                mMedicationsDao.insertMedication(medication);
-//                return null;
-//            }
-//        }.execute();
 
         checkNotNull(medication);
         Runnable saveRunnable = new Runnable() {
@@ -186,13 +146,7 @@ public class MedicationsLocalDataSource implements MedicationsDataSource {
     @SuppressLint("StaticFieldLeak")
     @Override
     public void deleteMedication(@NonNull final String medicationId) {
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... voids) {
-//                mMedicationsDao.deleteTaskById(medicationId);
-//                return null;
-//            }
-//        }.execute();
+
 
         Runnable deleteRunnable = new Runnable() {
             @Override

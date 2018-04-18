@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".medications.MedicationsActivity"
+    tools:context=".dashboard.DashboardActivity"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -34,19 +34,19 @@
             android:layout_height="match_parent">
 
             <FrameLayout
-                android:id="@+id/medications_container"
+                android:id="@+id/dashboard_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fab_add_medication"
+                android:id="@+id/fab_save_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_done"
                 app:fabSize="normal"
-                app:layout_anchor="@id/medications_container"
-                app:layout_anchorGravity="bottom|right|end" />
+                app:layout_anchor="@+id/dashboard_container"
+                app:layout_anchorGravity="right|bottom" />
         </android.support.design.widget.CoordinatorLayout>
 
     </LinearLayout>
