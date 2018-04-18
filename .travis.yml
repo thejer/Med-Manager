@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-language: android
-jdk:
-  - oraclejdk8
-android:
-  components:
-    - tools
-    - build-tools-24.0.0
-    - android-24
-    - Extra-android-support
-    - extra-google-google_play_services
-    - extra-android-m2repository
-    - extra-google-m2repository
-    - addon-google_apis-google-24
-BEFORE_INSTALL:
-- ​​chmod + x gradlew
-- export JAVA8_HOME = / usr / lib / jvm / java-8-oracle
-- export JAVA_HOME = $ JAVA8_HOME
-after_success:
-- chmod + x ./upload-gh-pages. sh
-- ./upload-apk.sh
-script:
-- ./gradlew build
-=======
 language: android 
 jdk: 
   - oraclejdk8 
@@ -44,4 +20,3 @@ after_success:
 - ./upload-apk.sh 
 script: 
 - ./gradlew build
->>>>>>> 0a91b1410870e678fa4572a208dd0659f2653219
