@@ -23,6 +23,8 @@ public class DashboardPresenter implements DashboardContract.IPresenter, UserInf
                               UserInformationRepository userInformationRepository){
         mDashboardView = checkNotNull(dashboardView);
         mUserInformationRepository = checkNotNull(userInformationRepository);
+
+        mDashboardView.setPresenter(this);
     }
 
 

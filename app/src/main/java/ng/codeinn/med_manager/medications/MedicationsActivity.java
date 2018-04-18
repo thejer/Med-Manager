@@ -1,5 +1,6 @@
 package ng.codeinn.med_manager.medications;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -9,16 +10,33 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
+import java.util.List;
 
 import ng.codeinn.med_manager.R;
+import ng.codeinn.med_manager.dashboard.DashboardActivity;
 import ng.codeinn.med_manager.data.source.room.MedicationsDatabase;
 import ng.codeinn.med_manager.data.source.room.MedicationsLocalDataSource;
 import ng.codeinn.med_manager.util.ActivityUtils;
 import ng.codeinn.med_manager.util.AppExecutors;
 
 public class MedicationsActivity extends AppCompatActivity {
+
+
 
     private DrawerLayout drawer;
 
@@ -32,6 +50,8 @@ public class MedicationsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medications);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -39,12 +59,19 @@ public class MedicationsActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setStatusBarBackground(R.color.colorPrimaryDark);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView =  navigationView.getHeaderView(0);
+        TextView header_username = headerView.findViewById(R.id.user_name);
+        header_username.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         if (navigationView != null) {
             setupDrawerContent(navigationView);
         }
+
+
+
         MedicationsFragment medicationsFragment = (MedicationsFragment)
                 getSupportFragmentManager().findFragmentById(R.id.medications_container);
 
@@ -56,11 +83,15 @@ public class MedicationsActivity extends AppCompatActivity {
                     medicationsFragment, R.id.medications_container);
         }
 
+
+
         MedicationsDatabase database = MedicationsDatabase.getInstance(getApplicationContext());
 
         mMedicationsPresenter = new MedicationsPresenter(
                 MedicationsLocalDataSource.getInstance(new AppExecutors(), database.medicationsDao())
                 , medicationsFragment);
+
+
 
         if (savedInstanceState != null){
             MedicationsFilterType currentFilterType = (MedicationsFilterType)
@@ -68,6 +99,15 @@ public class MedicationsActivity extends AppCompatActivity {
             mMedicationsPresenter.setFiltering(currentFilterType);
         }
     }
+
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
+
+
 
 
     public void setActionBarTitle(String title){
@@ -123,8 +163,17 @@ public class MedicationsActivity extends AppCompatActivity {
                         //Do nothing
                         break;
                     case R.id.sign_out:
-                        // TODO: 14/04/2018 Set Up sign out
+                        AuthUI.getInstance()
+                                .signOut(MedicationsActivity.this)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(MedicationsActivity.this, "Signed out", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                                });
                         break;
+                    case R.id.dashboard:
+                        startActivity(new Intent(MedicationsActivity.this, DashboardActivity.class));
                     default:
                         break;
                 }
